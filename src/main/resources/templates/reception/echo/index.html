@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+
+    <title>Echo Music API | iolll.com</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta property="wb:webmaster" content="c51923015ca19eb1">
+    <meta name="author" content="m.life.iolll.com">
+    <meta name="copyright" content="Copyright ©m.life.iolll.com 版权所有">
+    <meta name="revisit-after" content="1 days">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- <link rel="stylesheet" href="css/lib/swiper-3.3.1.min.css"> -->
+    <link rel="stylesheet" th:href="@{/css/phone.css}">
+    <link rel="stylesheet" href="./css/commodity.css">
+    <link rel="stylesheet" th:href="@{/css/backcolor.css}">
+    <link href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.css" rel="stylesheet">
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="header" class="header">
+    <div style="width:80%;float:left;">
+        <span class="logo">  nice Some </span>
+    </div>
+    <div style="line-height: 51px;">
+        <svg t="1523967334645" class="icon" style="width: 2em; height: 2em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2470" data-spm-anchor-id="a313x.7781069.0.i0"><path d="M896 42.666667H128C91.733333 42.666667 64 70.4 64 106.666667v810.666666c0 36.266667 27.733333 64 64 64h768c36.266667 0 64-27.733333 64-64V106.666667c0-36.266667-27.733333-64-64-64z m21.333333 874.666666c0 12.8-8.533333 21.333333-21.333333 21.333334H128c-12.8 0-21.333333-8.533333-21.333333-21.333334V106.666667c0-12.8 8.533333-21.333333 21.333333-21.333334h768c12.8 0 21.333333 8.533333 21.333333 21.333334v810.666666z m-160-640c-29.866667 0-53.333333 23.466667-53.333333 53.333334 0 17.066667 8.533333 32 21.333333 42.666666 0 87.466667-119.466667 160-213.333333 160s-213.333333-72.533333-213.333333-160c12.8-10.666667 21.333333-25.6 21.333333-42.666666 0-29.866667-23.466667-53.333333-53.333333-53.333334S213.333333 300.8 213.333333 330.666667c0 25.6 19.2 46.933333 42.666667 53.333333 8.533333 106.666667 140.8 192 256 192s247.466667-85.333333 256-192c25.6-4.266667 42.666667-25.6 42.666667-53.333333 0-29.866667-23.466667-53.333333-53.333334-53.333334z" fill="#ff5676" p-id="2471"></path></svg>
+    </div>
+    </div>
+</div>
+<div style="text-align:center;clear:both">
+</div>
+<div>
+    <div><input id="searchInput" placeholder="搜索id或者歌曲名字"></div>
+    <div>搜索结果区域</div>
+    <div>空区域（添加数据）</div>
+</div>
+<div class="clear"></div>
+<div id="appList"></div>
+</div>
+<div class="footer"></div>
+<script src="js/lib/jquery-2.1.1.min.js"></script>
+<script src="js/lib/jquery.gradientify.min.js"></script>
+<script src="js/lib/swiper-3.3.1.jquery.min.js"></script>
+<script src="js/lib/jquery.nicescroll.js"></script>
+<script src="js/lib/vue.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+
+
+
+    })
+
+
+</script>
+</body>
+</html>

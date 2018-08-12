@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+
+    <title>Echo Music API | iolll.com</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta property="wb:webmaster" content="c51923015ca19eb1">
+    <meta name="author" content="m.life.iolll.com">
+    <meta name="copyright" content="Copyright ©m.life.iolll.com 版权所有">
+    <meta name="revisit-after" content="1 days">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- <link rel="stylesheet" href="css/lib/swiper-3.3.1.min.css"> -->
+    <link rel="stylesheet" th:href="@{/css/phone.css}">
+    <link rel="stylesheet" th:href="@{/css/commodity.css}">
+    <link rel="stylesheet" th:href="@{/css/backcolor.css}">
+    <link href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.css" rel="stylesheet">
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="header" class="header">
+    <div style="width:80%;float:left;">
+        <input id="searchEdit" placeholder="搜索Echo歌曲名字" style="
+    width:  100%;
+    padding:  3px;
+    outline: none;
+    margin:  3px;
+">
+    </div>
+    <div >
+        <svg t="1528813871677" class="icon" id="searchBtn"
+             style="width: 1.5em; height: 1.5em;vertical-align: middle;fill: currentColor;overflow: hidden;margin-left: 20px;
+    margin-top: 5px;"
+             viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5058">
+            <path d="M929.299 739.872L774.98 634.816c31.086-51.044 48.995-110.994 48.995-175.129 0-186.22-150.96-337.181-337.18-337.181s-337.18 150.962-337.18 337.182c0 186.218 150.961 337.179 337.181 337.179 101.842 0 193.139-45.151 254.964-116.527l155.843 106.097a28.021 28.021 0 0 0 15.823 4.886c9.006 0 17.854-4.312 23.306-12.316 8.752-12.86 5.424-30.377-7.433-39.135zM596.1 718.493c-34.589 14.629-71.364 22.047-109.304 22.047s-74.716-7.418-109.305-22.047c-33.437-14.142-63.478-34.4-89.29-60.213-25.811-25.811-46.068-55.852-60.213-89.29-14.63-34.589-22.047-71.368-22.047-109.303 0-37.941 7.417-74.715 22.047-109.304 14.145-33.438 34.402-63.48 60.213-89.29 25.813-25.813 55.854-46.07 89.29-60.214 34.589-14.63 71.365-22.049 109.305-22.049s74.715 7.419 109.304 22.049c33.437 14.144 63.479 34.4 89.291 60.214 25.81 25.81 46.069 55.852 60.212 89.29 14.63 34.589 22.047 71.362 22.047 109.304 0 37.935-7.417 74.714-22.047 109.303a279.709 279.709 0 0 1-26.677 48.872 28.078 28.078 0 0 0-7.705 7.616 28.142 28.142 0 0 0-3.768 8 284.009 284.009 0 0 1-22.063 24.802c-25.812 25.813-55.854 46.072-89.29 60.213z"
+                  fill="#464899" p-id="5059" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path>
+            <path d="M661.921 328.785a22.414 22.414 0 0 1-11.787-3.346 179.688 179.688 0 0 0-23.571-12.198c-11.446-4.884-16.764-18.119-11.881-29.563 4.884-11.446 18.12-16.765 29.563-11.881a224.827 224.827 0 0 1 29.505 15.268c10.598 6.522 13.9 20.4 7.38 30.996-4.252 6.915-11.646 10.724-19.209 10.724M317.785 352.971c-4.808 0-9.649-1.53-13.749-4.694-9.852-7.603-11.675-21.75-4.071-31.602 33.717-43.69 82.21-73.227 136.543-83.166 43.232-7.907 87.37-3.009 127.637 14.177 11.446 4.884 16.764 18.12 11.881 29.564-4.884 11.445-18.12 16.765-29.564 11.88-32.114-13.703-67.331-17.608-101.846-11.299-43.365 7.937-82.07 31.507-108.978 66.373-4.441 5.752-11.111 8.767-17.853 8.767"
+                  fill="#E84C57" p-id="5060">
+
+            </path>
+        </svg>
+        <svg t="1528820084353" class="icon" id="downBtn"
+             style="width: 1.5em; height: 1.5em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11591"><path d="M638.4 377.1l-198 198h73.1l124.9-124.9zM638.4 334.7v-37.4c0-8.3-6.7-15-15-15H400.6c-8.3 0-15 6.7-15 15v277.8H398l240.4-240.4z m-195.9-17.6c18.3 0 33.1 14.8 33.1 33.1s-14.8 33.1-33.1 33.1-33.1-14.8-33.1-33.1 14.8-33.1 33.1-33.1zM638.4 492.6l-82.5 82.5H629l9.4-9.4zM411.4 171.4h200.2c11.3 0 20.6-9.2 20.6-20.6v-9.9c0-11.3-9.2-20.6-20.6-20.6H411.4c-11.3 0-20.6 9.2-20.6 20.6v9.9c0 11.4 9.2 20.6 20.6 20.6z" fill="#FFBC00" p-id="11592"></path><path d="M411.4 201.4h200.2c27.9 0 50.6-22.7 50.6-50.6v-9.9c0-27.9-22.7-50.6-50.6-50.6H411.4c-27.9 0-50.6 22.7-50.6 50.6v9.9c0 27.9 22.7 50.6 50.6 50.6z m-20.6-60.5c0-11.3 9.2-20.6 20.6-20.6h200.2c11.3 0 20.6 9.2 20.6 20.6v9.9c0 11.3-9.2 20.6-20.6 20.6H411.4c-11.3 0-20.6-9.2-20.6-20.6v-9.9z" fill="#46287C" p-id="11593"></path><path d="M442.5 350.2m-33.1 0a33.1 33.1 0 1 0 66.2 0 33.1 33.1 0 1 0-66.2 0Z" fill="#FFFFFF" p-id="11594"></path><path d="M258.9 605.1l244.7 281.1c2.3 2.7 5.3 4.2 8.4 4.2 3.1 0 6-1.5 8.4-4.2l244.7-281.1H258.9z" fill="#FFBC00" p-id="11595"></path><path d="M797.1 590.6c-2.1-4.6-9.2-15.4-29.1-15.4h-99.6V297.3c0-24.8-20.2-45-45-45H400.6c-24.8 0-45 20.2-45 45v277.8H256c-19.9 0-26.9 10.8-29.1 15.4-2.1 4.6-5.6 17.1 7.4 32L481 905.9c8 9.2 19.3 14.5 31 14.5s23-5.3 31-14.5l246.6-283.3c13.1-15 9.6-27.4 7.5-32zM512 890.4c-3.1 0-6-1.5-8.4-4.2L258.9 605.1H765L520.4 886.2c-2.4 2.7-5.3 4.2-8.4 4.2z m-71.6-315.3l198-198v73.1L513.5 575.1h-73.1z m115.5 0l82.5-82.5v73.1l-9.4 9.4h-73.1zM385.6 297.3c0-8.3 6.7-15 15-15h222.8c8.3 0 15 6.7 15 15v37.4L398 575.1h-12.3V297.3z" fill="#46287C" p-id="11596" data-spm-anchor-id="a313x.7781069.0.i6"></path></svg>
+    </div>
+    <div style="text-align:center;clear:both">
+    </div>
+</div>
+    <div id="list" class="banner">
+        <!--<div class="bannerItem ">-->
+
+            <!--<img class="pic" style="width:40%;" src="/img/facepic/images.jpeg">-->
+            <!--<div class="infoBox">-->
+                <!--<div style="padding-left:  20px;padding-top:  10px;">-->
+                    <!--<div>444444</div>-->
+                    <!--<div class="price">77</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="bannerItem ">-->
+
+            <!--<img class="pic" style="width:40%;" src="/img/facepic/images1.jpeg">-->
+            <!--<div class="infoBox">-->
+                <!--<div style="padding-left:  20px;padding-top:  10px;">-->
+                    <!--<div>444444</div>-->
+                    <!--<div class="price">77</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="bannerItem ">-->
+
+            <!--<img class="pic" style="width:40%;" src="/img/facepic/images0.jpeg">-->
+            <!--<div class="infoBox">-->
+                <!--<div style="padding-left:  20px;padding-top:  10px;">-->
+                    <!--<div>444444</div>-->
+                    <!--<div class="price">77</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+
+    <div class="clear"></div>
+    <div id="appList"></div>
+</div>
+<div class="footer">
+    <audio id="audio"></audio>
+    <a id="down" href="" download>下载</a>
+</div>
+
+<script src="/js/lib/jquery-2.1.1.min.js"></script>
+<script src="/js/lib/jquery.gradientify.min.js"></script>
+<script src="/js/lib/swiper-3.3.1.jquery.min.js"></script>
+<script src="/js/lib/jquery.nicescroll.js"></script>
+<script src="/js/lib/vue.js"></script>
+<script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.js"></script>
+<script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+
+        init();
+
+    })
+
+    function init() {
+
+        $("#downBtn").click(function () {
+            down($("#audio")[0].src)
+        });
+        $("#searchBtn").click(function () {
+            var key = $("#searchEdit").val();
+            $.ajax({
+                type: "GET", //提交方式
+                url: "/EchoSong/name/?name=" + key + "&page=1&limit=10",//路径
+                success: function (result) {//返回数据根据结果进行相应的处理
+                    if (result.status == 100) {
+                        var divs ="";
+                        for (var i = 0; i < result.data.length; i++) {
+                            var song = result.data[i];
+                            var info = song.info.substring(0,(song.info.length>40)? 40: song.info.length);
+                           divs+="<div class=\"bannerItem \">\n" +
+                               "\n" +
+                               "            <img class=\"pic\" style=\"width:40%;\" src=\""+song.pic+"\">\n" +
+                               "<div class=\"playicon\"  data-url='"+song.source+"' ><svg  t=\"1528816835406\"  style=\"width: 2em;height: 2em;vertical-align: middle;fill: currentColor;overflow: hidden;\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"6944\" data-spm-anchor-id=\"a313x.7781069.0.i4\"><path d=\"M450 718.3c-16.7 0-32.2-3.5-46-11.6-42.4-24.7-61.3-85.2-61.3-196.2 0-107 19.8-168.5 62.4-193.3 43.1-25.1 103.3-12.2 201.3 43.4 84.4 47 127.2 93.8 130.8 142.8 3 40.6-20.3 79.2-71.1 118.1-12.3 9.4-26.3 18.9-41.6 28.2-5.8 3.5-11.8 7.1-18.1 10.6-54.6 31.1-110.1 58-156.4 58z m3.2-375.8c-11.6 0-21.3 2.4-29.3 7-29.1 17-43.9 71.2-43.9 161.1 0 93.5 14 147.2 42.8 164C451.1 691 502 676.7 588 628c5.9-3.3 11.6-6.7 17-10 14.2-8.7 27.1-17.4 38.3-26 39.5-30.3 58.5-59.1 56.6-85.8-2.6-35-40.2-73-111.9-113-60-34.1-104-50.7-134.8-50.7z\" fill=\"#FF7878\" p-id=\"6945\"></path><path d=\"M512.2 960.2C265.1 960.2 64 759.2 64 512S265 63.8 512.2 63.8s448.2 201 448.2 448.2-201.1 448.2-448.2 448.2z m0-859c-226.6 0-410.9 184.3-410.9 410.9S285.6 923 512.2 923 923 738.6 923 512 738.7 101.2 512.2 101.2z\" fill=\"#FF7878\" p-id=\"6946\"></path></svg></div>" +
+                               "            <div class=\"infoBox\">\n" +
+                               "                <div style=\"padding-left:  20px;padding-top:  10px;\">\n" +
+                               "                    <div class='title' data-url='\"+song.source+\"'>"+song.name+"</div>\n" +
+                               "                    <div class=\"price\">"+info+"</div>\n" +
+                               "                </div>\n" +
+                               "            </div>\n" +
+                               "\n" +
+                               "        </div>";
+                        }
+                        $("#list").append(divs);
+                        $(".playicon").on("click",function() {
+                            choice_song($(this).data("url"))
+                        })
+
+                        // for (var i = 0; i < $(".playicon").length; i++) {
+                        //     $(".playicon")[i].click(function () {
+                        //         console.log($(this).dataset.url)
+                        //     })
+                        // }
+
+                    } else {
+                        console.log(result)
+                    }
+                }
+            });
+        })
+    }
+    //点击列表选择要播放的歌曲
+    function choice_song(e){
+        var audio = document.getElementById("audio");
+        audio.src = e;
+        audio.play()
+        // document.getElementById("currentSong").innerHTML = elem.innerHTML;
+    }
+    function down(e) {
+        window.location.href=e;
+        // $("#down").href = e;
+        // $("#down").click()
+    }
+
+
+</script>
+</body>
+</html>
