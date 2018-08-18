@@ -4,18 +4,11 @@ import com.iolll.nicesome.authorization.annotation.Authorization
 import com.iolll.nicesome.authorization.annotation.CurrentUser
 import com.iolll.nicesome.authorization.manager.TokenManager
 import com.iolll.nicesome.authorization.model.TokenModel
-import com.iolll.nicesome.config.ResultStatus
 import com.iolll.nicesome.model.base.User
 import com.iolll.nicesome.db.UserRepository
 import com.iolll.nicesome.model.base.RBuilder
 import com.iolll.nicesome.model.base.Result
-import io.reactivex.Observable
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
-import org.springframework.util.Assert
 import org.springframework.util.StringUtils.isEmpty
 import org.springframework.web.bind.annotation.*
 @RestController

@@ -60,7 +60,7 @@ class UrlRecordController {
         var totalSql = getSql("select count(id) from `url_record`", userId, type, filedNames, name, likesc, sd, pageNum, size)
         var query = entityManager?.createNativeQuery(totalSql)
         val total = query.singleResult as BigInteger
-        var allPage = (total.toInt() / 3)
+        var allPage = (total.toInt() / size)
 
         var sql = getSql("select * from `url_record`", userId, type, filedNames, name, likesc, sd, pageNum, size)
         var q = entityManager?.createNativeQuery(sql, UrlRecord::class.java)
@@ -85,7 +85,7 @@ class UrlRecordController {
         var totalSql = getSql("select count(id) from `url_record`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
         var query = entityManager?.createNativeQuery(totalSql)
         val total = query.singleResult as BigInteger
-        var allPage = (total.toInt() / 3)
+        var allPage = (total.toInt() / size)
 
         var sql = getSql("select * from `url_record`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
         var q = entityManager?.createNativeQuery(sql, UrlRecord::class.java)
@@ -98,8 +98,9 @@ class UrlRecordController {
     //分页查询sql
     fun getSql(sqlte: String, userId: Long, type: String, filedNames: String, name: String, likes: Map<String, String>, sd: Sort.Direction, page: Int, size: Int): String {
         var sql = sqlte
+        sql += " where deleted = false "
         if (userId != 0L)
-            sql += " where user_id =" + userId + " "
+            sql += " and user_id =" + userId + " "
 
 
         if (!isEmpty(type))
@@ -114,6 +115,7 @@ class UrlRecordController {
         if (!isEmpty(filedNames))
             sql += " order by " + filedNames + " " + sd
 
+
         sql += " limit " + page + "," + size
         println(sql)
         return sql
@@ -121,8 +123,8 @@ class UrlRecordController {
 
     @Authorization
     @GetMapping("/{id}")
-    fun getById(@CurrentUser user: User, @PathVariable("id") id: Long): UrlRecord {
-        return repository.findOne(id)
+    fun getById(@CurrentUser user: User, @PathVariable("id") id: Long): Result<UrlRecord> {
+        return RBuilder.seccess(repository.findOne(id))
     }
 
     @Authorization
@@ -134,9 +136,9 @@ class UrlRecordController {
 
     @Authorization
     @PutMapping("/")
-    fun update(@CurrentUser user: User, @RequestBody body: UrlRecord): UrlRecord {
+    fun update(@CurrentUser user: User, @RequestBody body: UrlRecord): Result<UrlRecord> {
         body.user = user
-        return repository.save(body)
+        return RBuilder.seccess(repository.save(body))
     }
 
     @Authorization

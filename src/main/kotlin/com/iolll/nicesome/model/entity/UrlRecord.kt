@@ -40,6 +40,7 @@ data class UrlRecord(
          * URL地址
          */
         var url: String = "#",
+        var info: String = "",
         /**
          * 是否对所有人可以见
          */
@@ -63,9 +64,8 @@ data class UrlRecord(
 
 
 ) {
+
     override fun toString(): String {
-        return "UrlRecord(id=$id, user=$user, name=$name, icon=$icon, type=$type, space=$space, url='$url', openAll=$openAll, useNum=$useNum, forkNum=$forkNum, starNum=$starNum)"
+        return "UrlRecord(id=$id, user=$user, name=$name, icon=$icon, type=$type, space=$space, url='$url', info='$info', openAll=$openAll, useNum=$useNum, forkNum=$forkNum, starNum=$starNum, deleted=$deleted)"
     }
-
-
 }

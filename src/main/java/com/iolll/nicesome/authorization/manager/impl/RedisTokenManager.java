@@ -47,6 +47,7 @@ public class RedisTokenManager implements TokenManager {
         if (param.length != 2) {
             return null;
         }
+        System.out.println("authentication "+authentication);
         //使用userId和源token简单拼接成的token，可以增加加密措施
         String p = param[1];
         if ("undefined".equals(p))
@@ -61,6 +62,8 @@ public class RedisTokenManager implements TokenManager {
             return false;
         }
         String token = redis.boundValueOps(model.getUserId()).get();
+        System.out.println("token "+token );
+        System.out.println("model token "+model.getToken() );
         if (token == null || !token.equals(model.getToken())) {
             return false;
         }
