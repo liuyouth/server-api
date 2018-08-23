@@ -20,6 +20,6 @@ public class Constants {
     /**
      * 存放Authorization的header字段
      */
-    public static final String AUTHORIZATION = "Authorization";
+    public static final String AUTHORIZATION = "authorization";
 
 }

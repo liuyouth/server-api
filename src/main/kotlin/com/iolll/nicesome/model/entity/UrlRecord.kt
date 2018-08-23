@@ -31,7 +31,10 @@ data class UrlRecord(
         /**
          * 类型
          */
-        var type: String? = "",
+        @ManyToOne(optional = true)
+        @NotFound(action = NotFoundAction.IGNORE)
+        @JoinColumn(name = "type_id", foreignKey = ForeignKey(name = "url_for_type"))
+        var type: UrlType? = null,
         /**
          * 空间   以后改为 group 组
          */
@@ -40,7 +43,6 @@ data class UrlRecord(
          * URL地址
          */
         var url: String = "#",
-        var info: String = "",
         /**
          * 是否对所有人可以见
          */
@@ -64,8 +66,7 @@ data class UrlRecord(
 
 
 ) {
-
-    override fun toString(): String {
-        return "UrlRecord(id=$id, user=$user, name=$name, icon=$icon, type=$type, space=$space, url='$url', info='$info', openAll=$openAll, useNum=$useNum, forkNum=$forkNum, starNum=$starNum, deleted=$deleted)"
-    }
+        override fun toString(): String {
+                return "UrlRecord(id=$id, user=$user, name=$name, icon=$icon, type=$type, space=$space, url='$url', openAll=$openAll, useNum=$useNum, forkNum=$forkNum, starNum=$starNum, deleted=$deleted)"
+        }
 }

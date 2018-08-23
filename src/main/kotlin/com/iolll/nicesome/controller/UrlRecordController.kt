@@ -3,8 +3,11 @@ package com.iolll.nicesome.controller
 import com.iolll.nicesome.authorization.annotation.Authorization
 import com.iolll.nicesome.authorization.annotation.CurrentUser
 import com.iolll.nicesome.db.UrlRecordRepository
+import com.iolll.nicesome.db.UrlTypeRepository
 import com.iolll.nicesome.model.base.*
 import com.iolll.nicesome.model.entity.UrlRecord
+import com.iolll.nicesome.model.entity.UrlType
+import io.reactivex.Observable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RequestBody
@@ -14,6 +17,7 @@ import org.springframework.util.StringUtils.isEmpty
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import java.math.BigInteger
+import java.util.*
 
 
 @RestController
@@ -21,6 +25,8 @@ import java.math.BigInteger
 class UrlRecordController {
     @Autowired
     lateinit var repository: UrlRecordRepository
+    @Autowired
+    lateinit var urlTypeRepository: UrlTypeRepository
     @Autowired
     @PersistenceContext
     lateinit var entityManager: EntityManager
@@ -60,7 +66,7 @@ class UrlRecordController {
         var totalSql = getSql("select count(id) from `url_record`", userId, type, filedNames, name, likesc, sd, pageNum, size)
         var query = entityManager?.createNativeQuery(totalSql)
         val total = query.singleResult as BigInteger
-        var allPage = (total.toInt() / size)
+        var allPage = (total.toInt() / 3)
 
         var sql = getSql("select * from `url_record`", userId, type, filedNames, name, likesc, sd, pageNum, size)
         var q = entityManager?.createNativeQuery(sql, UrlRecord::class.java)
@@ -85,7 +91,7 @@ class UrlRecordController {
         var totalSql = getSql("select count(id) from `url_record`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
         var query = entityManager?.createNativeQuery(totalSql)
         val total = query.singleResult as BigInteger
-        var allPage = (total.toInt() / size)
+        var allPage = (total.toInt() / 3)
 
         var sql = getSql("select * from `url_record`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
         var q = entityManager?.createNativeQuery(sql, UrlRecord::class.java)
@@ -98,9 +104,8 @@ class UrlRecordController {
     //分页查询sql
     fun getSql(sqlte: String, userId: Long, type: String, filedNames: String, name: String, likes: Map<String, String>, sd: Sort.Direction, page: Int, size: Int): String {
         var sql = sqlte
-        sql += " where deleted = false "
         if (userId != 0L)
-            sql += " and user_id =" + userId + " "
+            sql += " where user_id =" + userId + " "
 
 
         if (!isEmpty(type))
@@ -115,7 +120,6 @@ class UrlRecordController {
         if (!isEmpty(filedNames))
             sql += " order by " + filedNames + " " + sd
 
-
         sql += " limit " + page + "," + size
         println(sql)
         return sql
@@ -123,22 +127,30 @@ class UrlRecordController {
 
     @Authorization
     @GetMapping("/{id}")
-    fun getById(@CurrentUser user: User, @PathVariable("id") id: Long): Result<UrlRecord> {
-        return RBuilder.seccess(repository.findOne(id))
+    fun getById(@CurrentUser user: User, @PathVariable("id") id: Long): UrlRecord {
+        return repository.findOne(id)
     }
 
     @Authorization
     @PostMapping("/")
     fun add(@CurrentUser user: User, @RequestBody body: UrlRecord): Result<UrlRecord> {
+        if (body.type != null) {
+            if (null == urlTypeRepository.findOne(body.type!!.id))
+                body.type = urlTypeRepository.save(body.type)
+        } else body.type = UrlType().superType // 如果没有则把root给他
         body.user = user
         return RBuilder.seccess(repository.save(body))
     }
 
     @Authorization
     @PutMapping("/")
-    fun update(@CurrentUser user: User, @RequestBody body: UrlRecord): Result<UrlRecord> {
+    fun update(@CurrentUser user: User, @RequestBody body: UrlRecord): UrlRecord {
+        if (body.type != null) {
+            if (null == urlTypeRepository.findOne(body.type!!.id))
+                body.type = urlTypeRepository.save(body.type)
+        } else body.type = UrlType().superType // 如果没有则把root给他
         body.user = user
-        return RBuilder.seccess(repository.save(body))
+        return repository.save(body)
     }
 
     @Authorization

@@ -2,10 +2,13 @@ package com.iolll.nicesome.controller
 
 import com.iolll.nicesome.authorization.annotation.Authorization
 import com.iolll.nicesome.authorization.annotation.CurrentUser
-import com.iolll.nicesome.db.HomeAddressRepository
-import com.iolll.nicesome.model.base.*
+import com.iolll.nicesome.db.UrlTypeRepository
+import com.iolll.nicesome.model.base.PageResult
+import com.iolll.nicesome.model.base.RBuilder
+import com.iolll.nicesome.model.entity.*
 import com.iolll.nicesome.model.base.RBuilder.seccess
-import com.iolll.nicesome.model.entity.HomeAddress
+import com.iolll.nicesome.model.base.Result
+import com.iolll.nicesome.model.base.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.web.bind.annotation.*
@@ -20,13 +23,13 @@ import javax.persistence.PersistenceContext
 import java.math.BigInteger
 
 /**
- * Created by GitHub Id = liuyouth on 2018/08/12.
+ * Created by GitHub Id = liuyouth on 2018/08/23.
  */
 @RestController
-@RequestMapping("/home/address")
-class HomeAddressController {
+@RequestMapping("/url/type")
+class UrlTypeController {
     @Autowired
-    lateinit var repository: HomeAddressRepository
+    lateinit var repository: UrlTypeRepository
     @Autowired
     @PersistenceContext
     lateinit var entityManager: EntityManager
@@ -45,7 +48,7 @@ class HomeAddressController {
              @RequestParam(value = "page", defaultValue = "0") page: Int,
              @RequestParam(value = "size", defaultValue = "15") size: Int,
              @RequestParam(value = "sortField", defaultValue = "") filedName: String,
-             @RequestParam(value = "sortOrder", defaultValue = "") sortOrder: String): PageResult<HomeAddress> {
+             @RequestParam(value = "sortOrder", defaultValue = "") sortOrder: String): PageResult<UrlType> {
         var likesc = likes
         if (likesc == null)
             likesc = HashMap()
@@ -63,14 +66,14 @@ class HomeAddressController {
             else -> Sort.Direction.ASC
         }
 
-        var totalSql = getSql("select count(id) from `home_address`", userId, type, filedNames, name, likesc, sd, pageNum, size)
+        var totalSql = getSql("select count(id) from `url_type`", userId, type, filedNames, name, likesc, sd, pageNum, size)
         var query = entityManager?.createNativeQuery(totalSql)
         val total = query.singleResult as BigInteger
         var allPage = (total.toInt() / 3)
 
-        var sql = getSql("select * from `home_address`", userId, type, filedNames, name, likesc, sd, pageNum, size)
-        var q = entityManager?.createNativeQuery(sql, HomeAddress::class.java)
-        var list: List<HomeAddress> = q.resultList.toList() as List<HomeAddress>
+        var sql = getSql("select * from `url_type`", userId, type, filedNames, name, likesc, sd, pageNum, size)
+        var q = entityManager?.createNativeQuery(sql, UrlType::class.java)
+        var list: List<UrlType> = q.resultList.toList() as List<UrlType>
 
         return RBuilder.seccess(list, total.toLong(), allPage)
 
@@ -80,7 +83,7 @@ class HomeAddressController {
     fun adminlist(
 
             @RequestParam(value = "page", defaultValue = "0") page: Int,
-            @RequestParam(value = "limit", defaultValue = "15") size: Int): PageResult<HomeAddress> {
+            @RequestParam(value = "limit", defaultValue = "15") size: Int): PageResult<UrlType> {
 
         val pageNum = if (page == 0) {
             0
@@ -88,14 +91,14 @@ class HomeAddressController {
             page - 1
         }
 
-        var totalSql = getSql("select count(id) from `home_address`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
+        var totalSql = getSql("select count(id) from `url_type`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
         var query = entityManager?.createNativeQuery(totalSql)
         val total = query.singleResult as BigInteger
         var allPage = (total.toInt() / 3)
 
-        var sql = getSql("select * from `home_address`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
-        var q = entityManager?.createNativeQuery(sql, HomeAddress::class.java)
-        var list: List<HomeAddress> = q.resultList.toList() as List<HomeAddress>
+        var sql = getSql("select * from `url_type`", 0, "", "", "", HashMap(), Sort.Direction.DESC, pageNum, size)
+        var q = entityManager?.createNativeQuery(sql, UrlType::class.java)
+        var list: List<UrlType> = q.resultList.toList() as List<UrlType>
 
         return RBuilder.seccess(list, total.toLong(), allPage)
 
@@ -127,29 +130,26 @@ class HomeAddressController {
 
     @Authorization
     @GetMapping("/{id}")
-    fun getById(@CurrentUser user: User, @PathVariable("id") id: Long): HomeAddress {
+    fun getById(@CurrentUser user: User, @PathVariable("id") id: Long): UrlType {
         return repository.findOne(id)
     }
 
     @Authorization
     @PostMapping("/")
-    fun add(@CurrentUser user: User, @RequestBody body: HomeAddress): Result<HomeAddress> {
-        body.user = user
+    fun add(@CurrentUser user: User, @RequestBody body: UrlType): Result<UrlType> {
         return RBuilder.seccess(repository.save(body))
     }
 
     @Authorization
     @PutMapping("/")
-    fun update(@CurrentUser user: User, @RequestBody body: HomeAddress): HomeAddress {
-        body.user = user
+    fun update(@CurrentUser user: User, @RequestBody body: UrlType): UrlType {
         return repository.save(body)
     }
 
     @Authorization
     @DeleteMapping("/{id}")
-    fun del(@CurrentUser user: User, @PathVariable("id") id: Long): Result<HomeAddress> {
-        val body: HomeAddress = repository.findOne(id)
-        body.deleted = true
+    fun del(@CurrentUser user: User, @PathVariable("id") id: Long): Result<UrlType> {
+        val body: UrlType = repository.findOne(id)
         return RBuilder.seccess(repository.save(body))
         // 采用逻辑删除
         //        return repository.delete(id)
